@@ -1,19 +1,19 @@
-const salt = require('../config/settings.js').salt;
-const crypto = require('crypto');
-const gift = require('../model/gift.js');
+const GiftModel = require('../model/gift.js');
+var flag = 0;
+const createcode = function (num) {
+	GiftModel.insert(num, function (err,data) {
+		if (err) {
+			console.log(err)
+		}
+		flag++;
+	    console.log('插入成功' + data.code +'共'+ flag + '条数据');
+	});
+	db.close();
+	return flag;
+}
 
-const creatcode = num => {
-	for (var i = 0; i < num; i++) {
-		    var time = new Date().getTime().toString();
-		    var hash = crypto.createHmac('md5', salt)
-                   .update(time)
-                   .digest('hex')
-                   .substring(2,12);
-            var json = {};
-            json.code = hash;
-            json.status = true;
-            json.date = new Date();
-		    gift.insertOne(json);
-	}
-};
-module.exports = creatcode;
+
+module.exports = createcode;
+
+
+
