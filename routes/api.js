@@ -1,18 +1,46 @@
 var express = require('express');
 var router = express.Router();
-var createcode = require('../modules/creatcode.js');
-var getgift = require('../modules/getCode.js')
-//创建code API
-router.get('/create', function(req, res, next) {
-  var num = req.num;
-  res.end(createcode(num));
-  next();
-});
+var GiftModel = require('../model/gift.js')
+var createcode = require('../modules/creatcode.js')
 
-router.get('/getgift', function(req, res, next) {
-  var code = getgift();
-  res.end(code);
-  next();
-});
+// 创建code接口
+router.post('/create', (req, res) => {
+  var num = req.body.num;
+   createcode(num);
+   res.send('发送成功');
+})
 
-module.exports = router;
+// 获取code
+router.get('/code', (req, res) => {
+  var random =Math.round(Math.random()*10);
+  GiftModel.find({bool：true})
+       .skip(random)
+       .limit(1)
+       .then(code => {
+         res.json(code)
+       })
+       .catch(err => {
+         res.json(err)
+       })
+})
+
+// 查询code被使用情况
+router.get('/checkstatus', (req, res) => {
+  GiftModel.findOne({code:req.query.code})
+    .then(data => {
+      res.json(data+req.query.code)
+    })
+    .catch(err => {
+      res.json(err)
+    })
+})
+
+//使用code
+router.put('/usecode',(req,res) => {
+  GiftModel.findOneAndUpdate({ code : req.body.code}
+       ,{ $set : { bool: false}})
+       .then(movie => res.send( req.body.code +'使用成功'))
+       .catch(err => res.json(err))
+})
+
+module.exports = router

@@ -1,19 +1,34 @@
 const GiftModel = require('../model/gift.js');
+const crypto = require('crypto');
+const salt = require('../config/settings.js').salt;
 var flag = 0;
-const createcode = function (num) {
-	GiftModel.insert(num, function (err,data) {
-		if (err) {
-			console.log(err)
-		}
-		flag++;
-	    console.log('插入成功' + data.code +'共'+ flag + '条数据');
-	});
-	db.close();
-	return flag;
-}
+//新建礼包
+const createcode = function(num) {
+    var count = 0;
+    while(num > count){
+        var random = Math.round(Math.random()*50)
+        let time = new Date().getTime().toString();
+        let hash = crypto.createHmac('sha256', salt)
+                       .update(time)
+                       .digest('hex')
+                       .substring(random,random + 8);
+        let json = {};
+        json.code = hash;
+        json.bool = true;
+        json.date = new Date();
+        GiftModel.create(json)
+	             .then(data => {
+	            	  flag++
+	                  console.log('新建成功'+ data + '---共' + flag)
+	              })
+	              .catch(err => {
+	                  console.log(err)
+	              });
+	               count++;
+    }
+};
 
-
-module.exports = createcode;
+module.exports = createcode
 
 
 
