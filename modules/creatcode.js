@@ -6,6 +6,8 @@ var flag = 0;
 const createcode = function(num) {
     var count = 0;
     while(num > count){
+//礼包码生成方式采用加盐后加密
+//然后产生一个50以内的随机数截图加密后的8位字符串
         var random = Math.round(Math.random()*50)
         let time = new Date().getTime().toString();
         let hash = crypto.createHmac('sha256', salt)
