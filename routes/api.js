@@ -5,11 +5,11 @@ var createcode = require('../modules/creatcode.js')
 
 // 创建code接口
 router.post('/create', (req, res) => {
-//这里有个坑post过来的req.body.num是String类型
-//开始准备用typeof number来做类型判断，结果当然一条都创建不了
-//本来也有单次创建最大数量，最后只有取巧做个数值比较
+//content-type记得设置为application/json
+//否则 typeof num类型为string会影响封装的createcode函数正常执行
   var num = req.body.num;
-  if(num<5000){
+//判断num类型和大小，前端做的话也要做类型验证再发送减少无用请求
+  if(typeof num == 'number' && num<5000){
     createcode(num);
     res.send('发送成功');
   }else{
