@@ -11,12 +11,12 @@
  用express的提供api供前端调用,前端ajax请求进行对数据库的CURD操作.
  
 ## 效果图
-使用 postman时请选择好数据类型
+使用 postman时请选择CONTENT-TYPE,如application/x-www-form-urlencoded、application/json一类，否则可能会出错
 ![postman测试](./show.gif)
 
 
 ## 开发环境
-需要本地安装[node](https://nodejs.org/en/),[npm](https://www.npmjs.com/）,[mongodb](https://www.mongodb.com/)
+需要本地安装[node](https://nodejs.org/en/),[npm](https://www.npmjs.com/),[mongodb](https://www.mongodb.com/)
 
 ## 初始化
 本地的mongodb服务跑起来,默认 127.0.0.1:27017端口
@@ -25,7 +25,9 @@
 
 ```bash
 git clone git@github.com:LamperougeLS/giftdemo.git
+
 cd giftdemo && npm install 
+
 npm start 
 ```  
 
