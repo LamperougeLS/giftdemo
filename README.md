@@ -1,6 +1,5 @@
-# 一个简单的前后端分离案例
-
-
+# 一个简单的礼包码demo
+ 
 ## 前言
  
 一个朋友聊天时说到的需求，需要生成，使用，检查使用情况，获取礼包码功能，简单实现了一下
@@ -11,7 +10,8 @@
  用express的提供api供前端调用,前端ajax请求进行对数据库的CURD操作.
  
 ## 效果图
-使用 postman时请选择CONTENT-TYPE,如application/x-www-form-urlencoded、application/json一类，否则可能会出错
+使用 postman时请选择CONTENT-TYPE,如application/x-www-form-urlencoded、application/json一类，否则可能会出错。
+图里api/creat接口测试postman没在raw里选择json格式，就不重录了。
 ![postman测试](./show.gif)
 
 
