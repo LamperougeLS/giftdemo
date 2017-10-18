@@ -36,6 +36,10 @@ npm start
 
 使用Postman进行测试,测试成功的话,后端服务基本上就完成了.
 
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
+
 
 
 
